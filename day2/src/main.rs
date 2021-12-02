@@ -32,15 +32,15 @@ fn part2(input: &str) -> i32 {
 
     input.lines().for_each(|line| {
         let tokens: Vec<&str> = line.splitn(2, ' ').collect();
-        let order = tokens[0];
-        let v: i32 = tokens[1].trim().parse().expect("int expected");
-        if order == "forward" {
-            horiz += v;
-            depth += aim * v;
-        } else if order == "down" {
-            aim += v;
-        } else if order == "up" {
-            aim -= v;
+        let v = tokens[1].parse::<i32>().expect("int expected");
+        match tokens[0] {
+            "forward" => {
+                horiz += v;
+                depth += aim * v;
+            }
+            "down" => aim += v,
+            "up" => aim -= v,
+            _ => {}
         }
     });
     return horiz * depth;
